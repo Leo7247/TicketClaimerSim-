@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA Test Portal</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f4f9;
+    color: #202b3c;
+}
+
+header {
+    background: #14243b;
+    color: white;
+    padding: 22px;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.panel {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 15px 0 8px;
+}
+
+select, input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.preview {
+    background: #214d83;
+    color: white;
+    padding: 45px 20px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+button {
+    background: #2463eb;
+    color: white;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+#customArea {
+    display: none;
+    margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    NOVA · TEST PORTAL
+</header>
+
+<div class="container">
+
+    <section class="panel">
+        <h1>Customize your button</h1>
+
+        <p>Choose what text should appear on the website.</p>
+
+        <label>Button text</label>
+
+        <select id="preset">
+            <option value="Claim Your Free Ticket">
+                Claim Your Free Ticket
+            </option>
+
+            <option value="Get Ticket">
+                Get Ticket
+            </option>
+
+            <option value="Redeem Now">
+                Redeem Now
+            </option>
+
+            <option value="Apply Now">
+                Apply Now
+            </option>
+
+            <option value="Register">
+                Register
+            </option>
+
+            <option value="Join Waitlist">
+                Join Waitlist
+            </option>
+
+            <option value="立即领取">
+                立即领取
+            </option>
+
+            <option value="チケットを受け取る">
+                チケットを受け取る
+            </option>
+
+            <option value="custom">
+                Custom text...
+            </option>
+        </select>
+
+        <div id="customArea">
+            <label>Enter your own button text</label>
+
+            <input
+                type="text"
+                id="customText"
+                placeholder="Enter button text..."
+                maxlength="70"
+            >
+        </div>
+    </section>
+
+    <section class="preview">
+
+        <h1>Welcome to our event!</h1>
+
+        <p>Select the button below to continue.</p>
+
+        <button id="previewButton">
+            Claim Your Free Ticket
+        </button>
+
+    </section>
+
+</div>
+
+<script>
+
+const preset = document.getElementById("preset");
+const customArea = document.getElementById("customArea");
+const customText = document.getElementById("customText");
+const previewButton = document.getElementById("previewButton");
+
+function getButtonText() {
+
+    if (preset.value === "custom") {
+        return customText.value.trim() || "Custom Button";
+    }
+
+    return preset.value;
+}
+
+function updateButton() {
+
+    customArea.style.display =
+        preset.value === "custom" ? "block" : "none";
+
+    previewButton.textContent = getButtonText();
+}
+
+preset.addEventListener("change", updateButton);
+customText.addEventListener("input", updateButton);
+
+previewButton.addEventListener("click", function() {
+
+    const action = getButtonText();
+
+    window.location.href =
+        "success.html?action=" + encodeURIComponent(action);
+
+});
+
+updateButton();
+
+</script>
+
+</body>
+</html>
